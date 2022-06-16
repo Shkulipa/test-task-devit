@@ -19,7 +19,10 @@ link: https://sharing.clickup.com/t/h/22wc1cz/S45D29HWOD8M1FT
 
 **Содердимое папок docker и src показано в качестве демострации и может отличаться. Так же в проекте могут присутсвывать и другие файлы и папки. СУБД на Ваш выбор.
 
-
+### Stack
+client: Typescript, ReactJS, Redux Toolkit, Jwt tokens(access & refresh tokens)
+server: Typescript, Express, MongoDB, Jwt tokens(access & refresh tokens)
+parser: Typescript, NodeJS, Puppeteer, Cheerio, MongoDB
 
 
 ### =========================
