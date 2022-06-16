@@ -1,0 +1,9 @@
+.postsBlock,
+.postsBlockWrapper {
+  display: grid;
+  gap: 20px;
+}
+
+.postsBlockWrapper { 
+  padding-top: 20px;
+}

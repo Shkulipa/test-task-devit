@@ -1,0 +1,25 @@
+.paginationPageBlock {
+  justify-content: center;
+  display: flex;
+  gap: 5px;
+  margin: 15px 0;
+}
+
+.paginationPageNumber {
+  width: min-content;
+  background-color: white;
+  padding: 3px;
+  border-radius: 12px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.paginationPageNumber.active {
+  color: white;
+  background-color: black;
+}
+
+.paginationPageNumber:hover {
+  color: white;
+  background-color: black;
+}

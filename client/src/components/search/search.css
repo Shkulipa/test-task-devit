@@ -1,0 +1,16 @@
+.search-form {
+  width: 100%;
+  display: flex;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-wrapper,
+.search-input {
+  width: 100%;
+}
+
+.search-wrapper {
+  position: relative;
+}

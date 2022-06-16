@@ -1,0 +1,32 @@
+.postCard {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 12px;
+}
+
+.postCardImgWrapper {
+  display: flex;
+  border-radius: 12px;
+  height: min-content;
+  width: fit-content;
+  margin-right: 15px;
+}
+
+.postCardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  max-height: 250px;
+}
+
+.info {
+  display: grid;
+  gap: 15px;
+}
+
+.readMore {
+  color: blue;
+}

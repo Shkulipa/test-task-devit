@@ -1,0 +1,18 @@
+header {
+  padding: 15px 0;
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.1)
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+nav a {
+  width: min-content;
+  white-space: nowrap;
+  border-bottom: 2px solid black;
+  height: min-content;
+}

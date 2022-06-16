@@ -1,0 +1,9 @@
+:root {
+  --error-color: red;
+
+  --default-border-radius: 12px;
+  --default-padding: 10px;
+  --default-border: 2px solid black;
+  --default-margin: 15px;
+  --defautl-transition: all .25s ease-out;
+}

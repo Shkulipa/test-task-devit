@@ -1,0 +1,31 @@
+.sort-panel-block {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.sort-panel-btn {
+  position: relative;
+  width: fit-content;
+  margin: 10px 50px;
+  cursor: pointer;
+}
+
+.sort-panel-btn::before {
+  display: none;
+  content: "\2794";
+  position: absolute;
+  left: -20px;
+}
+
+.sort-panel-btn.active::before {
+  display: block;
+}
+
+.sort-panel-btn.asc::before {
+  transform: rotate(-90deg);
+}
+
+.sort-panel-btn.desc::before {
+  transform: rotateZ(90deg);
+}

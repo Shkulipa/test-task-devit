@@ -1,0 +1,22 @@
+{
+  "name": "parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "parser.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cheerio": "^0.22.31",
+    "cheerio": "^1.0.0-rc.11",
+    "dayjs": "^1.11.2",
+    "dotenv": "^16.0.1",
+    "mongoose": "^6.3.5",
+    "pino": "^8.0.0",
+    "pino-pretty": "^8.0.0",
+    "puppeteer": "^14.2.1"
+  },
+  "dependencies": {
+    "htmlparser2": "^8.0.1"
+  }
+}
