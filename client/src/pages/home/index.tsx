@@ -9,7 +9,7 @@ import { SortPanel } from '../../components/sortPanel/sortPanel';
 
 export default function Home(): JSX.Element {
   const [sort, setSort] = useState<ESort>(ESort.DATE);
-  const [sortType, setSortType] = useState<boolean>(true);
+  const [sortType, setSortType] = useState<boolean>(false);
 
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>('');

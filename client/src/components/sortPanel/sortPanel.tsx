@@ -27,7 +27,7 @@ export function SortPanel({
         <div 
           className={cn("sort-panel-btn", {
             "active": sort === ESort.DATE,
-            }, sortType ? "asc" : "desc")
+            }, sortType ? "desc" :  "asc")
           } 
           onClick={() => sortClickHandler(ESort.DATE)}
         >

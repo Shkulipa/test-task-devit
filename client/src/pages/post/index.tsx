@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import parse from 'html-react-parser';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import "./post.css";
 import { postAPI } from "../../services/postAPI.service";
 import { error404, home } from "../../utils/pages/pages";
@@ -8,11 +8,12 @@ import { Button, Container, ErrorMsg, Header, Loader } from "../../components";
 import { useAppSelector } from "../../hooks/redux";
 import { IErrorResponse } from "../../interfaces/error.interfaces";
 import { getImgHelpers } from "../../helpers/getImg.helpers";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 export default function Post(): JSX.Element {
   const { id } = useParams();
   const { user } = useAppSelector(state => state.auth);
+  const navigate = useNavigate();
 
   /**
    * @info 
@@ -22,9 +23,35 @@ export default function Post(): JSX.Element {
 
   /**
    * @info 
+   * delete post data
+   */
+  const [deletePost, { isLoading: isLoadingDeletePost, error: errorDeletePost }] = postAPI.useDeletePostMutation();
+  const [isSuccessDelete, setIsSuccessDelete] = useState<boolean>(false);
+  
+  async function postDeleteHandler() {
+    if(!id) return;
+
+    const isConfirm = window.confirm("Are you sure you want to delete this post");
+    if(isConfirm) {
+      try {
+        await deletePost({ id });
+        navigate(home.path, { replace: true });
+        setIsSuccessDelete(true);
+        setTimeout(() => {
+          setIsSuccessDelete(false);
+          navigate(home.path, { replace: true });
+        }, 2000);
+      } catch (error) {
+        console.error("Post Create", error);
+      }
+    }
+  }
+
+  /**
+   * @info 
    * get post data
    */
-  const { data: post, error, isLoading } = postAPI.useFetchPostByIdQuery(id as string);
+  const { data: post, error, isLoading } = postAPI.useFetchPostByIdQuery(id as string, { skip: isSuccessDelete });
 
   /**
    * @info 
@@ -48,7 +75,12 @@ export default function Post(): JSX.Element {
             <Button>Update</Button>
           </Link>}
 
-       {post.img && isImg()}
+        {user && <div className="delete-btn">
+          <Button onClick={postDeleteHandler}>Delete Post</Button>
+        </div>
+       }
+
+        {post.img && isImg()}
       
         <div className="info">
           <div>
@@ -77,20 +109,42 @@ export default function Post(): JSX.Element {
   }
 
   /**
-   * @info 
-   * createPost handler error
+   * @info
+   * get Post handler error
    */  
   const errorGetPost = JSON.stringify(error);
   const parseErrorGetPost = errorGetPost && JSON.parse(errorGetPost) as IErrorResponse;
-  parseErrorGetPost && parseErrorGetPost.status === 500 && <Navigate to={home.path} />;
+  parseErrorGetPost 
+    && parseErrorGetPost.status === 500 && <Navigate to={home.path} />;
+
+ /**
+   * @info 
+   * delete Post handler error
+   */  
+  const errorDeletePostHandler = () => {
+    let errorMsg = "";
+    const errorDeletePostParse = JSON.stringify(errorDeletePost);
+    const parseErrorDeletePost = errorDeletePostParse && JSON.parse(errorDeletePostParse) as IErrorResponse;
+    parseErrorDeletePost && parseErrorDeletePost.status === 500 && <Navigate to={home.path} />;
+    parseErrorDeletePost &&
+      parseErrorDeletePost.data &&
+        parseErrorDeletePost.data.message &&
+          (errorMsg = parseErrorDeletePost.data.message);
+
+    if(error) errorMsg = (error as any).error;
+
+    return <ErrorMsg>{errorMsg}</ErrorMsg>
+  }
 
   return (
     <>
       <Header />
       <Container>
         <div className="post-wrapper">
-          {isLoading && <Loader />}
-          {parseErrorGetPost && <ErrorMsg>{parseErrorGetPost.data.message}</ErrorMsg>}
+          {(isLoading || isLoadingDeletePost) && <Loader />}
+          {isSuccessDelete && <div>Post success deleted, you will redirect to home</div>}
+          {parseErrorGetPost && !isSuccessDelete  && <ErrorMsg>{parseErrorGetPost.data.message}</ErrorMsg>}
+          {errorDeletePostHandler()}
           {renderPost()}
         </div>
       </Container>
