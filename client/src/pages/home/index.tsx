@@ -2,12 +2,15 @@ import { useCallback, useState } from 'react';
 import "./home.css";
 import { Pagination } from '../../components/pagination/pagination';
 import { Container, ErrorMsg, Header, Loader, PostCard, Search } from './../../components';
-import { postAPI } from '../../services/postAPI.service';
 import { useAppSelector } from '../../hooks/redux';
 import { ESort } from './home.interfaces';
 import { SortPanel } from '../../components/sortPanel/sortPanel';
+import { usePostApiContext } from '../../contexts/postApi.context';
+import { dataTestIds } from '../../tests/utils/dataTestIds';
 
 export default function Home(): JSX.Element {
+  const postAPI = usePostApiContext();
+
   const [sort, setSort] = useState<ESort>(ESort.DATE);
   const [sortType, setSortType] = useState<boolean>(false);
 
@@ -41,33 +44,36 @@ export default function Home(): JSX.Element {
        <Header />
        <Container>
          <div className="postsBlockWrapper">
-          {error && <ErrorMsg>{handleError()}</ErrorMsg>}
-          {isLoading && <Loader />}
-          <Search isLoading={isLoading} searchHandler={searchHandler} />
-          <SortPanel sort={sort} setSort={setSort} sortType={sortType} setSortType={setSortType} />
-          {!isLoading && posts && 
-            <div className="postsBlock">
-              {
-                posts.posts.map(post => 
-                  <PostCard 
-                    key={post._id} 
-                    post={post}
-                    onMouseEnter={() => prefetchPost(post._id)}
-                  />)
-              }
-            </div>
-          }
-          {
-          posts 
-            && posts.count > 0 
-            && <Pagination 
-                  count={posts.count} 
-                  currentPage={page} 
-                  setPage={setPage}
-                  prefetchHoverPage={prefetchHoverPage}
-                />
-          }
-         </div>
+           <>
+            {error && <ErrorMsg>{handleError()}</ErrorMsg>}
+            {isLoading && <Loader data-testid={dataTestIds.homeLoader}  />}
+            <Search isLoading={isLoading} searchHandler={searchHandler} />
+            <SortPanel sort={sort} setSort={setSort} sortType={sortType} setSortType={setSortType} />
+            {!isLoading && posts && 
+              <div className="postsBlock">
+                {
+                  posts.posts.map(post => 
+                    <PostCard 
+                      key={post._id}
+                      post={post}
+                      onMouseEnter={() => prefetchPost(post._id)}
+                      data-testid={dataTestIds.postCard}
+                    />)
+                }
+              </div>
+            }
+            {
+            posts 
+              && posts.count > 0 
+              && <Pagination 
+                    count={posts.count} 
+                    currentPage={page} 
+                    setPage={setPage}
+                    prefetchHoverPage={prefetchHoverPage}
+                  />
+            }
+           </>
+        </div>
       </Container>
     </>
   )

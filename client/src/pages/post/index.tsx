@@ -2,13 +2,14 @@ import dayjs from "dayjs";
 import parse from 'html-react-parser';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import "./post.css";
-import { postAPI } from "../../services/postAPI.service";
 import { error404, home } from "../../utils/pages/pages";
 import { Button, Container, ErrorMsg, Header, Loader } from "../../components";
 import { useAppSelector } from "../../hooks/redux";
 import { IErrorResponse } from "../../interfaces/error.interfaces";
 import { getImgHelpers } from "../../helpers/getImg.helpers";
 import { ReactNode, useState } from "react";
+import { dataTestIds } from "../../tests/utils/dataTestIds";
+import { usePostApiContext } from "../../contexts/postApi.context";
 
 export default function Post(): JSX.Element {
   const { id } = useParams();
@@ -21,6 +22,7 @@ export default function Post(): JSX.Element {
    */
   if(!id) <Navigate to={error404.path} replace={true} />
 
+  const postAPI = usePostApiContext();
   /**
    * @info 
    * delete post data
@@ -140,7 +142,7 @@ export default function Post(): JSX.Element {
     <>
       <Header />
       <Container>
-        <div className="post-wrapper">
+        <div className="post-wrapper" data-testid={dataTestIds.contentPostPage}>
           {(isLoading || isLoadingDeletePost) && <Loader />}
           {isSuccessDelete && <div>Post success deleted, you will redirect to home</div>}
           {parseErrorGetPost && !isSuccessDelete  && <ErrorMsg>{parseErrorGetPost.data.message}</ErrorMsg>}

@@ -6,6 +6,7 @@ import { loginSchema } from '../../validation/login.schema';
 import { IAuthData } from '../../interfaces/authData';
 import { loginAsync } from "./../../store/actions/login";
 import { useCheckAuth } from "../../hooks/useCheckAuth";
+import { dataTestIds } from "../../tests/utils/dataTestIds";
 
 export default function Login(): JSX.Element {
   useCheckAuth();
@@ -43,13 +44,14 @@ export default function Login(): JSX.Element {
           <form onSubmit={formLogin.handleSubmit} className="login-form">
             {error && <ErrorMsg className="response-err">{error}</ErrorMsg>}
             <div className="input-wrapper">
-              <Input 
+              <Input
                 className={"login-input"}
                 name="email"
                 placeholder="Your email..."
                 type="text"
                 onChange={formLogin.handleChange}
                 value={formLogin.values.email}
+                data-testid={dataTestIds.emailInput}
               />
               {errorEmail}
             </div>
@@ -61,10 +63,11 @@ export default function Login(): JSX.Element {
                 type="password"
                 onChange={formLogin.handleChange}
                 value={formLogin.values.password}
+                data-testid={dataTestIds.passwordInput}
               />
               {errorPassword}
             </div>
-            <Button className={"login-btn"} type="submit" disabled={isLoading}>
+            <Button className={"login-btn"} type="submit" disabled={isLoading} data-testid={dataTestIds.loginBtn}>
               {isLoading ? "isLoading..." : "login" }
             </Button>
           </form>

@@ -5,6 +5,7 @@ import { authSlice } from "./store/slices/auth/auth.slice";
 import { useAppDispatch } from "./hooks/redux";
 import { CONST } from "./interfaces/consts.interfaces";
 import { IUser } from "./interfaces/user";
+import { PostApiContext } from "./contexts/postApi.context";
 
 export function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,6 +17,8 @@ export function App(): JSX.Element {
   }, [])
 
   return (
-    <Router />
+    <PostApiContext>
+      <Router />
+    </PostApiContext>
   )
 }

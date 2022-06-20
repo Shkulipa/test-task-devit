@@ -1,4 +1,5 @@
 
+import { dataTestIds } from "../../tests/utils/dataTestIds";
 import "./pagination.css";
 
 interface IPaginationProps {
@@ -23,6 +24,7 @@ export function Pagination({ currentPage, prefetchHoverPage, count, setPage }: I
             onMouseEnter={() => prefetchHoverPage(pageNumber)}
             className={`paginationPageNumber ${isActive}`}
             onClick={() => setPage(pageNumber)}
+            data-testid={dataTestIds.paginationBtn}
           >
             {pageNumber}
           </div>

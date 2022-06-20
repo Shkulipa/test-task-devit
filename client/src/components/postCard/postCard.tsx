@@ -5,6 +5,7 @@ import { IPostCardProps } from "./postCard.interfaces";
 import dayjs from "dayjs";
 import { ReactNode } from "react";
 import { getImgHelpers } from "../../helpers/getImg.helpers";
+import { dataTestIds } from "../../tests/utils/dataTestIds";
 
 export function PostCard({ post, ...props }: IPostCardProps): JSX.Element {
   const { _id, author, createdAt, description, img, title, parsed } = post;
@@ -37,7 +38,7 @@ export function PostCard({ post, ...props }: IPostCardProps): JSX.Element {
           Description: {description}
         </div>
         <div className="readMore">
-          <Link to={`/post/get/${_id}`}>READ MORE</Link>
+          <Link to={`/post/get/${_id}`} data-testid={dataTestIds.readMore}>READ MORE</Link>
         </div>
       </div>
     </div>

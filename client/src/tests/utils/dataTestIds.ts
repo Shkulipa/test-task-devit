@@ -1,0 +1,15 @@
+export const dataTestIds = {
+  homeLink: "home-btn-link",
+  logoutLink: "logout-btn-link",
+  loginLink: "login-btn-link",
+  createPost: "create-btn-link",
+  homeLoader: "home-loader",
+  paginationBtn: "pagination-btn",
+  postCard: "post-card",
+  loader: "loader",
+  emailInput: "email-input",
+  passwordInput: "password-input",
+  loginBtn: "login-btn",
+  readMore: "read-more",
+  contentPostPage: "content-post-page",
+}

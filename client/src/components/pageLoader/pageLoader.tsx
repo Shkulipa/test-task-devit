@@ -1,6 +1,6 @@
 export function PageLoader(): JSX.Element {
   return (
-    <div>
+    <div data-testid="loader">
       Loading Page...
     </div>
   )
