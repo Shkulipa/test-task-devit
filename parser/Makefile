@@ -1,3 +1,3 @@
-up:
-	npx tsc 
-	NODE_ENV=local node out/parser.js
+parse:
+	npx tsc
+	node out/parser.js

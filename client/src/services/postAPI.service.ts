@@ -5,9 +5,10 @@ import { IAuthResponse } from '../interfaces/user';
 import { IPost, IPostsPayload } from '../interfaces/post';
 import { IUpdatePost } from '../pages/postUpdate/postUpdate.interfaces';
 import { IFetchPayload } from '../interfaces/fetchPosts.interfaces';
+import { SERVER_URL } from '../config/server.config';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.REACT_APP_SERVER_URL,
+  baseUrl: SERVER_URL,
   prepareHeaders: (headers) => {
     const getUser = localStorage.getItem(CONST.LOCAL_STORAGE_USER) as string;
     const parsedUser = getUser && JSON.parse(getUser) as IAuthResponse;

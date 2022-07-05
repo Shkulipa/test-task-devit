@@ -15,7 +15,7 @@ const url = "https://lifehacker.com/rss";
 (async () => {
   try {
     const browser = await PuppeteerService.initBrowser();
-
+    
     const page = await PuppeteerService.initPage(browser, url);
 
     const content = await page.content();

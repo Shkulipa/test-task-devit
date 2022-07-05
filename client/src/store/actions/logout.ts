@@ -1,13 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { $apiPrivate } from "../../config/axios.config";
+import { SERVER_URL } from '../../config/server.config';
 import { CONST } from "../../interfaces/consts.interfaces";
 
 export const logoutAsync = createAsyncThunk(
   'auth/logout',
   async (_, thunkAPI)  => {
     try {
-      await $apiPrivate.post<string>("/auth/logout");
+      await $apiPrivate.post<string>(SERVER_URL + "/auth/logout");
       localStorage.removeItem(CONST.LOCAL_STORAGE_USER);
     } catch (error) {
       console.error(error)

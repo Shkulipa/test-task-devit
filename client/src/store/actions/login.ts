@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { $apiPublic } from '../../config/axios.config';
+import { SERVER_URL } from '../../config/server.config';
 import { IAuthData } from '../../interfaces/authData';
 import { CONST } from '../../interfaces/consts.interfaces';
 import { IErrorHandler } from '../../interfaces/errorHandler';
@@ -11,7 +12,7 @@ export const loginAsync = createAsyncThunk(
   async (authData: IAuthData, thunkAPI)  => {
     const { email, password } = authData;
     try {
-      const response = await $apiPublic.post<IAuthResponse>(process.env.REACT_APP_SERVER_URL + "/auth/signin", {
+      const response = await $apiPublic.post<IAuthResponse>(SERVER_URL + "/auth/signin", {
         email,
         password,
       });

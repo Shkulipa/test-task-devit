@@ -1,0 +1,20 @@
+FROM node:16.14.0-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+# Installs latest Chromium (100) package.
+RUN apk add --no-cache chromium
+
+# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+#install make
+RUN apk add --update make
+
+RUN npm install
+RUN npm install -g typescript
+
+COPY . .

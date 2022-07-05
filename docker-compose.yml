@@ -1,0 +1,80 @@
+version: "3"
+
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+    container_name: test-task-devit-client
+    command: serve -s build -l 3000
+    environment:
+      - REACT_APP_SERVER_URL=http://server:3001/api/v1.0.0
+    restart: unless-stopped
+    networks:
+      - test-task-devit-network
+
+  server:
+    build: ./server
+    container_name: test-task-devit-server
+    command: npm run prod
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DB_URL=mongodb://server_db:27017/test-parser
+
+        #in ms ( 1000 = 1 sec, 3600000 = 1 hour, 7200000 = 2 hour )
+      - SECRET_ACCESS_TOKEN=secret-access-token
+      - EXPIRES_ACCESS=3600000
+
+      - SECRET_REFRESH_TOKEN=secret-refresh-token
+      - EXPIRES_REFRESH=7200000
+
+      - SALT_ROUNDS=10
+    depends_on:
+      - server_db
+    networks:
+      - test-task-devit-network
+
+  parser:
+    build: ./parser
+    container_name: test-task-devit-parser
+    tty: true
+    ports:
+      - "3002:3002"
+    environment:
+      - DB_URL=mongodb://server_db:27017/test-parser
+    depends_on:
+      - server_db
+    networks:
+      - test-task-devit-network
+
+  server_db:
+    image: mongo:latest
+    container_name: test-task-devit-server-db
+    volumes:
+      - mongodb_api:/data/db
+    networks:
+      - test-task-devit-network
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: test-task-devit-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf.prod:/etc/nginx/conf.d/nginx.conf
+    depends_on:
+      - client
+      - server
+    networks:
+      - test-task-devit-network
+
+volumes:
+    mongodb_api:
+    mongodb_auth:
+
+networks:
+  test-task-devit-network:
+    driver: bridge

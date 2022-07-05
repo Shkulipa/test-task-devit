@@ -57,7 +57,9 @@ class UserService {
 
 	async signin(input: ISigninInput) {
 		const { email, password } = input;
-
+    const encryptPassword = await PasswordService.encrypt(password);
+    console.log("encryptPassword", encryptPassword);
+    
 		const user = await UserModel.findOne({ email });
 		if (!user) throw ApiError.badRequest("User with this email was't found");
 

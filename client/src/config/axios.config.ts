@@ -3,7 +3,7 @@ import { CONST } from "../interfaces/consts.interfaces";
 import { IAuthResponse } from "../interfaces/user";
 
 const config: AxiosRequestConfig = {
-  baseURL: process.env.REACT_APP_SERVER_URL,
+  baseURL: '',
   responseType: "json",
   withCredentials: true
 };

@@ -6,6 +6,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "parse": "npx tsc & node out/parser.js"
+  },
   "devDependencies": {
     "@types/cheerio": "^0.22.31",
     "cheerio": "^1.0.0-rc.11",
