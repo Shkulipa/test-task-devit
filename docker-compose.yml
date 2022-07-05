@@ -51,7 +51,7 @@ services:
       - test-task-devit-network
 
   server_db:
-    image: mongo:latest
+    image: mongo:5.0.6
     container_name: test-task-devit-server-db
     volumes:
       - mongodb_api:/data/db
